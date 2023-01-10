@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app/models/weather_model.dart';
+import 'package:weather_app/providers/weather_provider.dart';
 import 'package:weather_app/screens/first_splash_screen.dart';
 import 'package:weather_app/screens/second_splash_screen.dart';
 
+import 'screens/five_day_forecast.dart';
 import 'screens/home_screen.dart';
 
 void main() {
@@ -14,13 +18,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (context) {
+        return WeatherProvider();
+      },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home:  HomeScreen(),
       ),
-      home: const HomeScreen(),
     );
   }
 }

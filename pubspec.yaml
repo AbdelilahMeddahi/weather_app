@@ -39,6 +39,12 @@ dependencies:
   flutter_svg: ^1.1.6
   google_fonts: ^3.0.1
   glassmorphism: ^3.0.0
+  http: ^0.13.5
+  provider: ^6.0.5
+  chart_sparkline: ^1.0.12
+  geolocator: ^9.0.2
+  geocoding: ^2.0.5
+  flutter_google_places: ^0.3.0
 
 dev_dependencies:
   flutter_test:
