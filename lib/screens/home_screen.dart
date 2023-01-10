@@ -12,50 +12,23 @@ import 'package:weather_app/providers/weather_provider.dart';
 import 'package:weather_app/services/location_service.dart';
 import 'package:weather_app/services/weather_service.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   WeatherModel? weatherData;
-  LocationService locationService = LocationService();
-
-  @override
-  void initState() {
-    setState(() {
-      locationService.getLocation();
-      () async {Provider.of<WeatherProvider>(context, listen: false).weatherData =
-          await WeatherService().getWeather(locationService.lattitude, locationService.longtitude);};
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    if (Provider.of<WeatherProvider>(context).isLoading!){
+      Provider.of<WeatherProvider>(context).getLocation();
+    };
+
     weatherData = Provider.of<WeatherProvider>(context).weatherData;
 
     return Scaffold(
       body: SafeArea(
-        child: locationService.isLoading == true
-            ? Center(
-                child: Container(
-                  color: Colors.red,
-                  child: IconButton(
-                      onPressed: () async {
-                        Provider.of<WeatherProvider>(context, listen: false)
-                                .weatherData =
-                            await WeatherService().getWeather(locationService.lattitude, locationService.longtitude);
-                        print(locationService.isLoading);
-                      },
-                      icon: const Icon(
-                        Icons.abc,
-                        size: 64,
-                      )),
-                ),
-              )
+        child: weatherData == null
+            ? Center(child: CircularProgressIndicator())
             : Stack(
                 children: [
                   Align(

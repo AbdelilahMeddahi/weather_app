@@ -1,6 +1,5 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:weather_app/models/weather_model.dart';
-import 'package:weather_app/services/weather_service.dart';
+
 
 class LocationService {
   //create various variables
@@ -12,14 +11,11 @@ class LocationService {
     bool _isLocationServiceEnabled =
         await Geolocator.isLocationServiceEnabled();
     LocationPermission locationPermission;
-
     if (!_isLocationServiceEnabled) {
       return Future.error('Location not enabled');
     }
-
     // status of permission
     locationPermission = await Geolocator.checkPermission();
-
     if (locationPermission == LocationPermission.deniedForever) {
       return Future.error('Location permission is denied forever');
     } else if (locationPermission == LocationPermission.denied) {
@@ -29,7 +25,6 @@ class LocationService {
         return Future.error('Location permission is denied');
       }
     }
-
     // getting current position
     return await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high)
@@ -38,6 +33,7 @@ class LocationService {
       this.lattitude = value.latitude;
       this.longtitude = value.longitude;
       this.isLoading = false;
+      print("bool value has change dnow");
     });
   }
 }
