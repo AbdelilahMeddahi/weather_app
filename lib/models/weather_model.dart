@@ -38,7 +38,7 @@ class WeatherModel {
   factory WeatherModel.fromJson(dynamic json) {
     return WeatherModel(
       region: json['location']["region"],
-      chanceOfRain: json['forecast']["forecastday"][0]["day"]["daily_chance_of_rain"],
+      chanceOfRain: (json['forecast']["forecastday"][0]["day"]["daily_chance_of_rain"] == 0) ? 1 : json['forecast']["forecastday"][0]["day"]["daily_chance_of_rain"],
       temp: json['current']["temp_c"],
       minTemp: json['forecast']["forecastday"][0]["day"]["mintemp_c"],
       maxTemp: json['forecast']["forecastday"][0]["day"]["maxtemp_c"],

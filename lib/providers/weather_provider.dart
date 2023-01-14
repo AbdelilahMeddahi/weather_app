@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/models/weather_model.dart';
-import 'package:weather_app/services/location_service.dart';
 
 import '../services/weather_service.dart';
 
@@ -61,7 +60,7 @@ class WeatherProvider extends ChangeNotifier {
       isLoading = false;
       print("bool value has changed now");
       return WeatherService()
-          .getWeather(value.latitude, value.longitude)
+          .getWeather(value.latitude, value.longitude , null)
           .then((value) {
         weatherData = value;
         notifyListeners();

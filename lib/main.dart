@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/providers/weather_provider.dart';
 import 'package:weather_app/screens/first_splash_screen.dart';
+import 'package:weather_app/screens/location_search_screen.dart';
 import 'package:weather_app/screens/second_splash_screen.dart';
 
 import 'screens/five_day_forecast.dart';
