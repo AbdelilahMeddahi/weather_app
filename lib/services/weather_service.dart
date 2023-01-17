@@ -9,7 +9,7 @@ class WeatherService {
       double? lat, double? lon, String? query) async {
     if (query == null) {
       Uri url = Uri.parse(
-          "http://api.weatherapi.com/v1/forecast.json?key=$apiKey&q=$lat,$lon&aqi=yes&days=5");
+          "http://api.weatherapi.com/v1/forecast.json?key=$apiKey&q=$lat,$lon&aqi=yes&days=7");
       http.Response response = await http.get(url);
       Map<String, dynamic> data = jsonDecode(response.body);
       WeatherModel weather = WeatherModel.fromJson(data);

@@ -6,7 +6,9 @@ class DayWeatherWidget extends StatelessWidget {
   final double minTemp;
   final double maxTemp;
   final String label;
-  const DayWeatherWidget({Key? key, required this.minTemp, required this.maxTemp, required this.label}) : super(key: key);
+  final String icon;
+  final String day;
+  const DayWeatherWidget({Key? key, required this.minTemp, required this.maxTemp, required this.label, required this.day, required this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +16,11 @@ class DayWeatherWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            "assets/star.svg",
-            height: 20,
-          ),
+          Image.network('https:$icon',height: 40),
           SizedBox(width: 10,),
-          Text("Today-$label"),
+          SizedBox(width: 170,child: Text("$day·$label",style: GoogleFonts.inter(fontWeight: FontWeight.w500),overflow: TextOverflow.ellipsis)),
           Spacer(),
-          Text("$maxTemp℃ / $minTemp℃"),
+          Text("$minTemp℃ / $maxTemp℃"),
         ],
       ),
     );

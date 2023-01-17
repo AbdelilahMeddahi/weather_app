@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:weather_app/models/forecast_model.dart';
 import 'package:weather_app/models/weather_model.dart';
 
 import '../services/weather_service.dart';
@@ -7,6 +8,7 @@ import '../services/weather_service.dart';
 
 class WeatherProvider extends ChangeNotifier {
   WeatherModel? _weatherData;
+  List<ForecastModel?>? _forecastModel;
   bool? _isLoading = true;
   double? _lattitude = 6.7538;
   double? _longtitude = 3.0588;
@@ -16,6 +18,11 @@ class WeatherProvider extends ChangeNotifier {
     _weatherData = weather;
   }
   WeatherModel? get weatherData => _weatherData;
+
+  set forecastdata(List<ForecastModel?> forecast) {
+    _forecastModel = forecast;
+  }
+  List<ForecastModel?>? get forecastModel => _forecastModel;
 
   set lattitude(double? lat) {
     _lattitude = lat;

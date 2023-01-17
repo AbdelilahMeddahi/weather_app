@@ -1,3 +1,5 @@
+import 'forecast_model.dart';
+
 class WeatherModel {
   String? name;
   String? region;
@@ -15,6 +17,7 @@ class WeatherModel {
   double? vision;
   int? humidity;
   int? cloud;
+  List<ForecastModel?> forecast;
 
   WeatherModel({
     required this.temp,
@@ -33,6 +36,7 @@ class WeatherModel {
     required this.localtime,
     required this.pressure,
     required this.windDegree,
+    required this.forecast,
   });
 
   factory WeatherModel.fromJson(dynamic json) {
@@ -53,6 +57,7 @@ class WeatherModel {
       localtime: json['location']["localtime"],
       pressure: json['current']["pressure_mb"],
       windDegree: json['current']["wind_degree"],
+      forecast: List.generate(3, (index) => ForecastModel.fromJson(json,index)),
     );
   }
 

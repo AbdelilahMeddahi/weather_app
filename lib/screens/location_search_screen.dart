@@ -56,20 +56,24 @@ class _LocationSearchScreenState extends State<LocationSearchScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(500),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(blurRadius: 25.0, color: Color(0xFFCBD6E7)),
-                      ],
-                    ),
-                    child: SvgPicture.asset(
-                      "assets/location/current_location.svg",
-                      height: 15,
-                      width: 15,
+                  GestureDetector(
+                    onTap:(){
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(500),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(blurRadius: 25.0, color: Color(0xFFCBD6E7)),
+                        ],
+                      ),
+                      child: SvgPicture.asset(
+                        "assets/location/current_location.svg",
+                        height: 15,
+                        width: 15,
+                      ),
                     ),
                   ),
                   Text(
@@ -79,20 +83,25 @@ class _LocationSearchScreenState extends State<LocationSearchScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w500),
                   ),
-                  Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(500),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(blurRadius: 25.0, color: Color(0xFFCBD6E7)),
-                      ],
-                    ),
-                    child: SvgPicture.asset(
-                      "assets/location/close.svg",
-                      height: 15,
-                      width: 15,
+                  GestureDetector(
+                    onTap:(){
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(500),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(blurRadius: 25.0, color: Color(0xFFCBD6E7)),
+                        ],
+                      ),
+                      child: SvgPicture.asset(
+                        "assets/location/close.svg",
+                        height: 15,
+                        width: 15,
+                      ),
                     ),
                   ),
                 ],

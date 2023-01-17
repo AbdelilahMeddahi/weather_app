@@ -9,6 +9,8 @@ import 'package:weather_app/components/day_weather.dart';
 import 'package:weather_app/components/detail_three_fields.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/providers/weather_provider.dart';
+import 'package:intl/intl.dart';
+
 import 'package:weather_app/screens/location_search_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,9 +20,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (Provider.of<WeatherProvider>(context).isLoading!){
+    if (Provider.of<WeatherProvider>(context).isLoading!) {
       Provider.of<WeatherProvider>(context).getLocation();
-    };
+    }
+    ;
 
     weatherData = Provider.of<WeatherProvider>(context).weatherData;
 
@@ -60,35 +63,48 @@ class HomeScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(500),
-                                  color: Colors.white,
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        blurRadius: 25.0,
-                                        color: Color(0xFFCBD6E7)),
-                                  ],
-                                ),
-                                child: Icon(
-                                  Icons.list_outlined,
-                                  size: 22,
+                              GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(500),
+                                    color: Colors.white,
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          blurRadius: 25.0,
+                                          color: Color(0xFFCBD6E7)),
+                                    ],
+                                  ),
+                                  child: Icon(
+                                    Icons.list_outlined,
+                                    size: 22,
+                                  ),
                                 ),
                               ),
                               Spacer(),
-                              Text(
-                                weatherData!.name!,
-                                style: GoogleFonts.inter(
-                                    color: Colors.blueGrey,
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w600),
+                              SizedBox(
+                                width: 210,
+                                child: Text(
+                                  weatherData!.name!,
+                                  maxLines: 1,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.inter(
+                                      color: Colors.blueGrey,
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                               Spacer(),
                               GestureDetector(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => LocationSearchScreen()));
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              LocationSearchScreen()));
                                 },
                                 child: Container(
                                   height: 40,
@@ -111,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 25,
                           ),
                           Container(
                             decoration: const BoxDecoration(boxShadow: [
@@ -155,13 +171,23 @@ class HomeScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Image.asset("assets/sun.png", height: 70),
+                                        Image.network(
+                                          "https:${weatherData!.conditionIcon!}",
+                                        ),
                                         Text(
                                           "${weatherData!.temp!.toInt()}℃",
                                           style: GoogleFonts.inter(
-                                              color: Colors.white,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 58),
+                                              fontSize: 58,
+                                              foreground: Paint()
+                                                ..shader = LinearGradient(
+                                                  colors: <Color>[
+                                                    Colors.white,
+                                                    Colors.white.withOpacity(0.2),
+                                                    //add more color here.
+                                                  ],
+                                                ).createShader(Rect.fromLTWH(
+                                                    200.0,100.0, 200.0, 200.0))),
                                         ),
                                       ],
                                     ),
@@ -199,7 +225,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                            height: 30,
+                            height: 35,
                           ),
                           Container(
                             height: 190,
@@ -214,7 +240,8 @@ class HomeScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 15, vertical: 20),
                             child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     mainAxisAlignment:
@@ -267,26 +294,33 @@ class HomeScreen extends StatelessWidget {
                           Column(
                             children: [
                               DayWeatherWidget(
-                                minTemp: weatherData!.temp!,
-                                maxTemp: weatherData!.temp!,
-                                label: weatherData!.conditionText!,
+                                day: "Today",
+                                minTemp: weatherData!.forecast[0]!.minTemp!,
+                                maxTemp: weatherData!.forecast[0]!.maxTemp!,
+                                label: weatherData!.forecast[0]!.conditionText!,
+                                icon: weatherData!.forecast[0]!.icon!,
                               ),
                               SizedBox(
                                 height: 14,
                               ),
                               DayWeatherWidget(
-                                minTemp: weatherData!.temp!,
-                                maxTemp: weatherData!.temp!,
-                                label: weatherData!.conditionText!,
-                              ),
+                                  day: "Tomorrow",
+                                  minTemp: weatherData!.forecast[1]!.minTemp!,
+                                  maxTemp: weatherData!.forecast[1]!.maxTemp!,
+                                  label:
+                                      weatherData!.forecast[1]!.conditionText!,
+                                  icon: weatherData!.forecast[1]!.icon!),
                               SizedBox(
                                 height: 14,
                               ),
                               DayWeatherWidget(
-                                minTemp: weatherData!.temp!,
-                                maxTemp: weatherData!.temp!,
-                                label: weatherData!.conditionText!,
-                              ),
+                                  day:
+                                      "${DateFormat('EEEE').format(DateTime.now().add(Duration(days: 2))).substring(0, 3)}",
+                                  minTemp: weatherData!.forecast[2]!.minTemp!,
+                                  maxTemp: weatherData!.forecast[2]!.maxTemp!,
+                                  label:
+                                      weatherData!.forecast[2]!.conditionText!,
+                                  icon: weatherData!.forecast[2]!.icon!),
                             ],
                           ),
                           const SizedBox(
@@ -301,7 +335,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                "5day-forecast",
+                                "3 day-forecast",
                                 style: GoogleFonts.inter(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w500),
