@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/weather_model.dart';
@@ -9,6 +10,29 @@ import 'screens/three_day_forecast.dart';
 import 'screens/home_screen.dart';
 
 void main() {
+  AwesomeNotifications()
+      .initialize(null, [
+    NotificationChannel(
+      channelKey: "firstChannel",
+      channelName: "daily 07:00 am notification",
+      channelDescription: "daily morning friendly reminder",
+      importance: NotificationImportance.High,
+      channelShowBadge: true,
+      enableLights: true,
+      enableVibration: true,
+      playSound: true,
+    ),
+    NotificationChannel(
+      channelKey: "dailytwopmchannel",
+      channelName: "daily 02:00 pm notification",
+      channelDescription: "every day two pm friendly reminder",
+      importance: NotificationImportance.High,
+      channelShowBadge: true,
+      enableLights: true,
+      enableVibration: true,
+      playSound: true,
+    ),
+  ]);
   runApp(const MyApp());
 }
 
@@ -18,7 +42,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
-
     return ChangeNotifierProvider(
       create: (context) {
         return WeatherProvider();
@@ -29,7 +52,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home:  FirstSplashScreen(),
+        home: FirstSplashScreen(),
       ),
     );
   }
